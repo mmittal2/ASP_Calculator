@@ -12,6 +12,15 @@ public class Translator {
         else if(operator == "-"){
             answer = e.subtract(a, b);
         }
+        else if(operator == "/"){
+            answer = e.divide(a, b);
+        }
+        else if(operator == "*"){
+            answer = e.multiply(a, b);
+        }
+        else if(operator == "^"){
+            answer = e.power(a, b);
+        }
         return answer;
     }
 }
