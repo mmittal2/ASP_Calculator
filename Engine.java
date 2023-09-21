@@ -1,25 +1,27 @@
+import java.lang.Math;
 public class Engine {
-    public static int add(int a, int b){
+
+    public static Double add(Double a, Double b){
         return a + b;
     }
     
-    public static int subtract(int a, int b){
+    public static Double subtract(Double a, Double b){
         return a - b;
     }
     
-    public static int multiply(int a, int b){
+    public static Double multiply(Double a, Double b){
         return a * b;
     }
 
-    public static float divide(int a, int b){
-        return (float) a / (float) b;
+    public static Double divide(Double a, Double b){
+        return (Double) a / (Double) b;
     }
 
-    public static int power(int a, int b){
-        return a ^ b;
+    public static Double power(Double a, Double b){
+        return Math.pow(a, b);
     }
 
     // public static void main(String[] args){
-    //     System.out.println(divide(5, 2));
+    //     System.out.prDoubleln(divide(5, 2));
     // }
 }
