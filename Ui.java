@@ -1,7 +1,10 @@
+import java.util.Scanner;
+
 public class Ui {
     public static void main(String[] args) {
         System.out.println("Let's start calculating!\n");
         printInstructions();
+        String calculation = getInput();
     }
 
     public static void printInstructions() {
@@ -14,6 +17,14 @@ public class Ui {
         System.out.println("\t- multiply: *");
         System.out.println("\t- divide: /");
         System.out.println("\t- power: ^\n");
+    }
+
+    public static String getInput() {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Please enter your calculation: ");
+        String calculation = sc.nextLine();
+        sc.close();
+        return calculation;
     }
 
 }
