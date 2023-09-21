@@ -5,6 +5,7 @@ public class Ui {
         System.out.println("Let's start calculating!\n");
         printInstructions();
         String calculation = getInput();
+        Translator t = new Translator(calculation);
     }
 
     public static void printInstructions() {
