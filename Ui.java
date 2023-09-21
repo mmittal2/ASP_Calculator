@@ -13,6 +13,7 @@ public class Ui {
         System.out.println("Instructions for how to use the calculator:");
         System.out.println("\t1. The calculator only takes integers (no decimals).");
         System.out.println("\t2. The calculator can perform the following functions: subtract, add, multiply, divide, and powers.");
+        System.out.println("\t3. Type a space between all numbers and operators (ex: 23 * 4).");
         System.out.println("  These are the symbols that represent each calculation:");
         System.out.println("\t- subtract: -");
         System.out.println("\t- add: +");
