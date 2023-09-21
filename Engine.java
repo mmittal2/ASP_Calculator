@@ -15,7 +15,7 @@ public class Engine {
         return (float) a / (float) b;
     }
 
-    public static int exponent(int a, int b){
+    public static int power(int a, int b){
         return a ^ b;
     }
 
