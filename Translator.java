@@ -1,5 +1,5 @@
 public class Translator {
-    public static void main(String[] args, String calculation){
+    public static void main(String[] args){
         Engine e = new Engine();
         Double result = calculate("+", 2.0, 3.0, e);
         System.out.println(result);
@@ -22,5 +22,8 @@ public class Translator {
             answer = e.power(a, b);
         }
         return answer;
+    }
+
+    public void translate(String calculation) {
     }
 }
