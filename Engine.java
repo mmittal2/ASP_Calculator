@@ -1,23 +1,23 @@
 import java.lang.Math;
 public class Engine {
 
-    public static Double add(Double a, Double b){
+    public Double add(Double a, Double b){
         return a + b;
     }
     
-    public static Double subtract(Double a, Double b){
+    public Double subtract(Double a, Double b){
         return a - b;
     }
     
-    public static Double multiply(Double a, Double b){
+    public Double multiply(Double a, Double b){
         return a * b;
     }
 
-    public static Double divide(Double a, Double b){
+    public Double divide(Double a, Double b){
         return (Double) a / (Double) b;
     }
 
-    public static Double power(Double a, Double b){
+    public Double power(Double a, Double b){
         return Math.pow(a, b);
     }
 
