@@ -45,10 +45,10 @@ public class Translator {
         return numbers;
     }
 
-    public static String parseAdd(String expression, Engine e){
-        int index = expression.indexOf("+")
+    public static String parseAdd(String calculation, Engine e){
+        int index = calculation.indexOf("+");
         while(index > -1){
-            ArrayList <Integer> numbers = getNumbers(expression, index);
+            ArrayList <Integer> numbers = getNumbers(calculation, index);
             int firstNum = numbers.get(0);
             int lastNum = numbers.get(1);
             int startingIndex = numbers.get(2);
@@ -56,9 +56,31 @@ public class Translator {
 
             double answer = e.add((double) firstNum, (double) lastNum);
 
-            expression = expression.substring(0, startingIndex) + " " +  Integer.toString((int) answer) + expression.substring(endingIndex);
+            calculation = calculation.substring(0, startingIndex) + " " +  Integer.toString((int) answer) + calculation.substring(endingIndex);
         }
-        return expression;
+        return calculation;
+    }
+
+    public String parseSubtract(String calculation, Engine e) {
+        int index = calculation.indexOf("-");
+        while (index > -1) {
+            ArrayList<Integer> nums = getNumbers(calculation, index);
+            double result = e.subtract((double)(nums.get(0)), (double)(nums.get(1)));
+            calculation = calculation.substring(0, nums.get(2)) + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
+            index = calculation.indexOf("-");
+        }
+        return calculation;
+    }
+
+    public String parseMultiply(String calculation, Engine e) {
+        int index = calculation.indexOf("*");
+        while (index > -1) {
+            ArrayList<Integer> nums = getNumbers(calculation, index);
+            double result = e.multiply((double)(nums.get(0)), (double)(nums.get(1)));
+            calculation = calculation.substring(0, nums.get(2)) + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
+            index = calculation.indexOf("*");
+        }
+        return calculation;
     }
 
     public String parseDivide(String calculation, Engine e) {
