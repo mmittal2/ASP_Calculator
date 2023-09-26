@@ -2,9 +2,11 @@ import java.util.ArrayList;
 
 public class Translator {
     public static void main(String[] args){
+        String result = calculate("3 + 2");
+        System.out.println(result);
     }
 
-    public String calculate(String calculation) {
+    public static String calculate(String calculation) {
         Engine e = new Engine();
         calculation = parsePower(calculation, e);
         calculation = parseMultiply(calculation, e);
@@ -57,49 +59,50 @@ public class Translator {
             double answer = e.add((double) firstNum, (double) lastNum);
 
             calculation = calculation.substring(0, startingIndex) + " " +  Integer.toString((int) answer) + calculation.substring(endingIndex);
+            index = calculation.indexOf("+");
         }
         return calculation;
     }
 
-    public String parseSubtract(String calculation, Engine e) {
+    public static String parseSubtract(String calculation, Engine e) {
         int index = calculation.indexOf("-");
         while (index > -1) {
             ArrayList<Integer> nums = getNumbers(calculation, index);
             double result = e.subtract((double)(nums.get(0)), (double)(nums.get(1)));
-            calculation = calculation.substring(0, nums.get(2)) + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
+            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
             index = calculation.indexOf("-");
         }
         return calculation;
     }
 
-    public String parseMultiply(String calculation, Engine e) {
+    public static String parseMultiply(String calculation, Engine e) {
         int index = calculation.indexOf("*");
         while (index > -1) {
             ArrayList<Integer> nums = getNumbers(calculation, index);
             double result = e.multiply((double)(nums.get(0)), (double)(nums.get(1)));
-            calculation = calculation.substring(0, nums.get(2)) + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
+            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
             index = calculation.indexOf("*");
         }
         return calculation;
     }
 
-    public String parseDivide(String calculation, Engine e) {
+    public static String parseDivide(String calculation, Engine e) {
         int index = calculation.indexOf("/");
         while (index > -1) {
             ArrayList<Integer> nums = getNumbers(calculation, index);
             double result = e.divide((double)(nums.get(0)), (double)(nums.get(1)));
-            calculation = calculation.substring(0, nums.get(2)) + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
+            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
             index = calculation.indexOf("/");
         }
         return calculation;
     }
 
-    public String parsePower(String calculation, Engine e) {
+    public static String parsePower(String calculation, Engine e) {
         int index = calculation.indexOf("^");
         while (index > -1) {
             ArrayList<Integer> nums = getNumbers(calculation, index);
             double result = e.power((double)(nums.get(0)), (double)(nums.get(1)));
-            calculation = calculation.substring(0, nums.get(2)) + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
+            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
             index = calculation.indexOf("^");
         }
         return calculation;
