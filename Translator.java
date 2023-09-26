@@ -71,5 +71,16 @@ public class Translator {
         }
         return calculation;
     }
+
+    public String parsePower(String calculation, Engine e) {
+        int index = calculation.indexOf("^");
+        while (index > -1) {
+            ArrayList<Integer> nums = getNumbers(calculation, index);
+            double result = e.power((double)(nums.get(0)), (double)(nums.get(1)));
+            calculation = calculation.substring(0, nums.get(2)) + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
+            index = calculation.indexOf("^");
+        }
+        return calculation;
+    }
     
 }
