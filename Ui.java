@@ -6,7 +6,7 @@ public class Ui {
         printInstructions();
         String calculation = getInput();
         Translator t = new Translator();
-        t.translate(calculation);
+        String result = t.calculate(calculation);
     }
 
     public static void printInstructions() {
