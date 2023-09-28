@@ -12,11 +12,6 @@ public class Translator {
             calculation = calculate(calculation, e, operators[i]);
         }
 
-        // calculation = parsePower(calculation, e);
-        // calculation = parseMultiply(calculation, e);
-        // calculation = parseDivide(calculation, e);
-        // calculation = parseAdd(calculation, e);
-        // calculation = parseSubtract(calculation, e);
         return calculation;
     }
 
@@ -74,67 +69,5 @@ public class Translator {
         }
         return calculation;
     }
-    /*
-    public static String parseAdd(String calculation, Engine e){
-        int index = calculation.indexOf("+");
-        while(index > -1){
-            ArrayList <Integer> numbers = getNumbers(calculation, index);
-            int firstNum = numbers.get(0);
-            int lastNum = numbers.get(1);
-            int startingIndex = numbers.get(2);
-            int endingIndex = numbers.get(3);
-
-            double answer = e.add((double) firstNum, (double) lastNum);
-
-            calculation = calculation.substring(0, startingIndex) + " " +  Integer.toString((int) answer) + calculation.substring(endingIndex);
-            index = calculation.indexOf("+");
-        }
-        return calculation;
-    }
-
-    public static String parseSubtract(String calculation, Engine e) {
-        int index = calculation.indexOf("-");
-        while (index > -1) {
-            ArrayList<Integer> nums = getNumbers(calculation, index);
-            double result = e.subtract((double)(nums.get(0)), (double)(nums.get(1)));
-            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
-            index = calculation.indexOf("-");
-        }
-        return calculation;
-    }
-
-    public static String parseMultiply(String calculation, Engine e) {
-        int index = calculation.indexOf("*");
-        while (index > -1) {
-            ArrayList<Integer> nums = getNumbers(calculation, index);
-            double result = e.multiply((double)(nums.get(0)), (double)(nums.get(1)));
-            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
-            index = calculation.indexOf("*");
-        }
-        return calculation;
-    }
-
-    public static String parseDivide(String calculation, Engine e) {
-        int index = calculation.indexOf("/");
-        while (index > -1) {
-            ArrayList<Integer> nums = getNumbers(calculation, index);
-            double result = e.divide((double)(nums.get(0)), (double)(nums.get(1)));
-            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
-            index = calculation.indexOf("/");
-        }
-        return calculation;
-    }
-
-    public static String parsePower(String calculation, Engine e) {
-        int index = calculation.indexOf("^");
-        while (index > -1) {
-            ArrayList<Integer> nums = getNumbers(calculation, index);
-            double result = e.power((double)(nums.get(0)), (double)(nums.get(1)));
-            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
-            index = calculation.indexOf("^");
-        }
-        return calculation;
-    }
-    */
     
 }
