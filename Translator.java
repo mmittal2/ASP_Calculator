@@ -2,17 +2,23 @@ import java.util.ArrayList;
 
 public class Translator {
     public static void main(String[] args){
-        String result = calculate("3 + 2");
+        String result = parsing("3 + 2");
         System.out.println(result);
     }
 
-    public static String calculate(String calculation) {
+    public static String parsing(String calculation) {
         Engine e = new Engine();
-        calculation = parsePower(calculation, e);
-        calculation = parseMultiply(calculation, e);
-        calculation = parseDivide(calculation, e);
-        calculation = parseAdd(calculation, e);
-        calculation = parseSubtract(calculation, e);
+        String[] operators = new String[]{"^", "*", "/", "+", "-"};
+        
+        for(int i = 0; i < operators.length; i++){
+            calculation = calculate(calculation, e, operators[i]);
+        }
+
+        // calculation = parsePower(calculation, e);
+        // calculation = parseMultiply(calculation, e);
+        // calculation = parseDivide(calculation, e);
+        // calculation = parseAdd(calculation, e);
+        // calculation = parseSubtract(calculation, e);
         return calculation;
     }
 
@@ -47,6 +53,29 @@ public class Translator {
         return numbers;
     }
 
+    public static String calculate(String calculation, Engine e, String operator){
+        int index = calculation.indexOf(operator);
+        while (index > -1) {
+            ArrayList<Integer> nums = getNumbers(calculation, index);
+            double result = 0.0;
+            if(operator == "^"){
+                result = e.power((double)(nums.get(0)), (double)(nums.get(1)));
+            } else if(operator == "*"){
+                result = e.multiply((double)(nums.get(0)), (double)(nums.get(1)));
+            } else if(operator == "/"){
+                result = e.divide((double)(nums.get(0)), (double)(nums.get(1)));
+            } else if(operator == "+"){
+                result = e.add((double)(nums.get(0)), (double)(nums.get(1)));
+            } else if(operator == "-"){
+                result = e.subtract((double)(nums.get(0)), (double)(nums.get(1)));
+            }
+            
+            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
+            index = calculation.indexOf("-");
+        }
+        return calculation;
+    }
+    /*
     public static String parseAdd(String calculation, Engine e){
         int index = calculation.indexOf("+");
         while(index > -1){
@@ -107,5 +136,6 @@ public class Translator {
         }
         return calculation;
     }
+    */
     
 }
