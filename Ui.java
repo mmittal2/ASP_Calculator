@@ -5,22 +5,20 @@ public class Ui {
         Scanner sc = new Scanner(System.in);
         System.out.println("Let's start calculating!\n");
         printInstructions();
-        String result = getResult();
-        System.out.println(result);
-        System.out.println("Do you want to do another calculation? (yes/no)");
-        String calculate_again = sc.nextLine();
-        while (calculate_again == "yes") {
-            result = getResult();
-            System.out.println(result);
+        while (true) {
+            String calculation = getInput(sc);
+            String calculation_without_spaces = calculation.replaceAll("\\s", "");
+            if (calculation_without_spaces != "") {
+                Translator t = new Translator();
+                String result = t.parsing(calculation);
+                System.out.println("=" + result);
+                System.out.println();
+            }
+            else {
+                break;
+            }
         }
         sc.close();
-    }
-
-    public static String getResult() {
-        String calculation = getInput();
-        Translator t = new Translator();
-        String result = t.parsing(calculation);
-        return result;
     }
 
     public static void printInstructions() {
@@ -34,13 +32,12 @@ public class Ui {
         System.out.println("\t- multiply: *");
         System.out.println("\t- divide: /");
         System.out.println("\t- power: ^\n");
+        System.out.println("To close the calculator, simply hit enter again.\n");
     }
 
-    public static String getInput() {
-        Scanner sc = new Scanner(System.in);
+    public static String getInput(Scanner sc) {
         System.out.println("Please enter your calculation: ");
         String calculation = sc.nextLine();
-        sc.close();
         return calculation;
     }
 

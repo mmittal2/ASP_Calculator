@@ -2,11 +2,9 @@ import java.util.ArrayList;
 
 public class Translator {
     public static void main(String[] args){
-        String result = parsing("4 ^ 2 * 3 + 6 / 2");
-        System.out.println(result);
     }
 
-    public static String parsing(String calculation) {
+    public String parsing(String calculation) {
         Engine e = new Engine();
         String[] operators = new String[]{"^", "*", "/", "+", "-"};
         
