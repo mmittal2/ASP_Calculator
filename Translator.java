@@ -69,8 +69,7 @@ public class Translator {
             } else if(operator == "-"){
                 result = e.subtract((double)(nums.get(0)), (double)(nums.get(1)));
             }
-            
-            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3), calculation.length());
+            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3));
             index = calculation.indexOf("-");
         }
         return calculation;
