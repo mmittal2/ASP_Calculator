@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Translator {
     public static void main(String[] args){
-        String result = parsing("3 + 2");
+        String result = parsing("4 ^ 2 * 3 + 6 / 2");
         System.out.println(result);
     }
 
@@ -26,7 +26,7 @@ public class Translator {
         ArrayList<Integer> numbers = new ArrayList<Integer>();
         // firstNum, lastNum, startingIndex, endingIndex
         int startingIndex = 0;
-        int endingIndex = 0;
+        int endingIndex = expression.length();
         String firstNum = "";
         String lastNum = "";
         for(int i = location - 2; i >= 0; i--){
