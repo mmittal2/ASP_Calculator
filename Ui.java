@@ -2,12 +2,25 @@ import java.util.Scanner;
 
 public class Ui {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Let's start calculating!\n");
         printInstructions();
+        String result = getResult();
+        System.out.println(result);
+        System.out.println("Do you want to do another calculation? (yes/no)");
+        String calculate_again = sc.nextLine();
+        while (calculate_again == "yes") {
+            result = getResult();
+            System.out.println(result);
+        }
+        sc.close();
+    }
+
+    public static String getResult() {
         String calculation = getInput();
         Translator t = new Translator();
-        String result = t.calculate(calculation);
-        System.out.println(result);
+        String result = t.parsing(calculation);
+        return result;
     }
 
     public static void printInstructions() {
@@ -24,7 +37,7 @@ public class Ui {
     }
 
     public static String getInput() {
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.println("Please enter your calculation: ");
         String calculation = sc.nextLine();
         sc.close();
