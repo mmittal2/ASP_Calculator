@@ -15,6 +15,7 @@ public class Ui {
                 System.out.println();
             }
             else {
+                System.out.println("Thank you for using our lovely calculator! We hope you have a great day! Continue Calculating!\n");
                 break;
             }
         }

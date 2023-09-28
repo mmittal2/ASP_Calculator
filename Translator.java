@@ -20,16 +20,16 @@ public class Translator {
         return calculation;
     }
 
-    public static ArrayList<Integer> getNumbers(String expression, int location){
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
+    public static ArrayList<Double> getNumbers(String expression, int location){
+        ArrayList<Double> numbers = new ArrayList<Double>();
         // firstNum, lastNum, startingIndex, endingIndex
-        int startingIndex = 0;
-        int endingIndex = expression.length();
+        Double startingIndex = 0.0;
+        Double endingIndex = (double) expression.length();
         String firstNum = "";
         String lastNum = "";
         for(int i = location - 2; i >= 0; i--){
             if(expression.charAt(i) == ' '){
-                startingIndex = i;
+                startingIndex = (double) i;
                 break;
             }
             firstNum = expression.charAt(i) + firstNum;
@@ -37,14 +37,14 @@ public class Translator {
 
         for(int i = location + 2; i < expression.length(); i++){
             if(expression.charAt(i) == ' '){
-                endingIndex = i;
+                endingIndex = (double) i;
                 break;
             }
             lastNum = lastNum + expression.charAt(i);
         }
         
-        numbers.add(Integer.valueOf(firstNum));
-        numbers.add(Integer.valueOf(lastNum));
+        numbers.add(Double.valueOf(firstNum));
+        numbers.add(Double.valueOf(lastNum));
         numbers.add(startingIndex);
         numbers.add(endingIndex);
         
@@ -54,7 +54,7 @@ public class Translator {
     public static String calculate(String calculation, Engine e, String operator){
         int index = calculation.indexOf(operator);
         while (index > -1) {
-            ArrayList<Integer> nums = getNumbers(calculation, index);
+            ArrayList<Double> nums = getNumbers(calculation, index);
             double result = 0.0;
             if(operator == "^"){
                 result = e.power((double)(nums.get(0)), (double)(nums.get(1)));
@@ -67,8 +67,10 @@ public class Translator {
             } else if(operator == "-"){
                 result = e.subtract((double)(nums.get(0)), (double)(nums.get(1)));
             }
-            calculation = calculation.substring(0, nums.get(2)) + " " + Integer.toString((int)result) + calculation.substring(nums.get(3));
-            index = calculation.indexOf("-");
+            int endingIndex = nums.get(3).intValue();
+            int startingIndex = nums.get(2).intValue();
+            calculation = calculation.substring(0, startingIndex) + " " + Double.toString(result) + calculation.substring(endingIndex);
+            index = calculation.indexOf(operator);
         }
         return calculation;
     }
