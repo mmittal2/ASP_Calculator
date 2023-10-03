@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Translator {
@@ -7,7 +8,6 @@ public class Translator {
     public String parsing(String calculation) {
         Engine e = new Engine();
         String[] operators = new String[]{"^", "*", "/", "+", "-"};
-        
         for(int i = 0; i < operators.length; i++){
             calculation = calculate(calculation, e, operators[i]);
         }
@@ -64,7 +64,9 @@ public class Translator {
             }
             int endingIndex = nums.get(3).intValue();
             int startingIndex = nums.get(2).intValue();
-            calculation = calculation.substring(0, startingIndex) + " " + Double.toString(result) + calculation.substring(endingIndex);
+            DecimalFormat df = new DecimalFormat("#.########");
+            String result_str = df.format(result);
+            calculation = calculation.substring(0, startingIndex) + " " + result_str + calculation.substring(endingIndex);
             index = calculation.indexOf(operator);
             
             index = checkNegative(calculation, index, operator);     
