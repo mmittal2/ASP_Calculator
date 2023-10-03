@@ -5,6 +5,7 @@ import java.util.*;
 public class Ui {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Translator t = new Translator();
         Hashtable<String, String> equations = new Hashtable<String, String>();
         System.out.println("Let's start calculating!\n");
         printInstructions();
@@ -14,7 +15,7 @@ public class Ui {
                 String calculation = getCalcInput(sc);
                 String calculation_without_spaces = calculation.replaceAll("\\s", "");
                 if (calculation_without_spaces != "") {
-                    Translator t = new Translator();
+                    
                     String result = t.parsing(calculation);
                     System.out.println("=" + result);
                     System.out.println();
@@ -30,7 +31,9 @@ public class Ui {
                 System.out.println(equation.get(0) + " = " + equation.get(1) + "\n");
             } else{
                 ArrayList<String> info = getUseEquationInput(sc);
-                
+                String expression = equations.get(info.get(0));
+                System.out.println(t.replaceVars(expression, info.get(1)));
+
                 // PLAN: go through and find all the 'x's in the expression, and then replace them all with the val, then just use calculate
             }
         }

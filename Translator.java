@@ -86,4 +86,13 @@ public class Translator {
         return index;
     }
     
+    public static String replaceVars(String expression, String val){
+        int index = expression.indexOf("x");
+        while(index > -1){
+            expression = expression.substring(0, index) + val + expression.substring(index + 1);
+            index = expression.indexOf("x");
+        }
+
+        return expression;
+    }
 }
