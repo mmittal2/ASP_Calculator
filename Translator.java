@@ -8,8 +8,9 @@ public class Translator {
     public String parsing(String calculation) {
         Engine e = new Engine();
         String[] operators = new String[]{"^", "*", "/", "+", "-"};
-        for(int i = 0; i < operators.length; i++){
-            calculation = calculate(calculation, e, operators[i]);
+        calculation = calculate(calculation, e, operators[0], "None");
+        for(int i = 1; i < operators.length; i+=2){
+            calculation = calculate(calculation, e, operators[i], operators[i+1]);
         }
         return calculation;
     }
@@ -45,9 +46,12 @@ public class Translator {
         return numbers;
     }
 
-    public static String calculate(String calculation, Engine e, String operator){
-        int index = calculation.indexOf(operator);
-        index = checkNegative(calculation, index, operator);
+    public static String calculate(String calculation, Engine e, String operator1, String operator2){
+        ArrayList<String> indexAndOperator = findIndex(calculation, operator1, operator2);
+        String index_str = indexAndOperator.get(0);
+        int index = Integer.valueOf(index_str);
+        String operator = indexAndOperator.get(1);
+
         while (index > -1) {
             ArrayList<Double> nums = getNumbers(calculation, index);
             double result = 0.0;
@@ -67,9 +71,14 @@ public class Translator {
             DecimalFormat df = new DecimalFormat("#.########");
             String result_str = df.format(result);
             calculation = calculation.substring(0, startingIndex) + " " + result_str + calculation.substring(endingIndex);
-            index = calculation.indexOf(operator);
             
-            index = checkNegative(calculation, index, operator);     
+            indexAndOperator = findIndex(calculation, operator1, operator2);
+            index_str = indexAndOperator.get(0);
+            index = Integer.valueOf(index_str);
+            operator = indexAndOperator.get(1);
+            System.out.println(calculation);
+            System.out.println(index);
+            System.out.println(operator);
         }
         return calculation;
     }
@@ -84,6 +93,25 @@ public class Translator {
             }
         }
         return index;
+    }
+
+    public static ArrayList<String> findIndex(String calculation, String operator1, String operator2) {
+        ArrayList<String> result = new ArrayList<String>();
+        String operator = operator1;
+        int index = calculation.indexOf(operator1);
+        index = checkNegative(calculation, index, operator1);
+        if (operator2 != "None") {
+            int index2 = calculation.indexOf(operator2);
+            index2 = checkNegative(calculation, index2, operator2);
+            if ((index == -1 && index2 != -1) || (index != -1 && index2 != -1 && index2 < index)) {
+                index = index2;
+                operator = operator2;
+            }
+        }
+        String index_str = Integer.toString(index);
+        result.add(index_str);
+        result.add(operator);
+        return result;
     }
     
     public static String replaceVars(String expression, String val){
