@@ -11,7 +11,6 @@ public class Translator {
         for(int i = 0; i < operators.length; i++){
             calculation = calculate(calculation, e, operators[i]);
         }
-
         return calculation;
     }
 
@@ -48,6 +47,7 @@ public class Translator {
 
     public static String calculate(String calculation, Engine e, String operator){
         int index = calculation.indexOf(operator);
+        index = checkNegative(calculation, index, operator);
         while (index > -1) {
             ArrayList<Double> nums = getNumbers(calculation, index);
             double result = 0.0;
@@ -66,8 +66,22 @@ public class Translator {
             int startingIndex = nums.get(2).intValue();
             calculation = calculation.substring(0, startingIndex) + " " + Double.toString(result) + calculation.substring(endingIndex);
             index = calculation.indexOf(operator);
+            
+            index = checkNegative(calculation, index, operator);     
         }
         return calculation;
+    }
+
+    public static int checkNegative(String calculation, int index, String operator) {
+        if (calculation.charAt(index + 1) != ' ') {
+            int storeIndex = index;
+            String calcSubstring = calculation.substring(index + 1);
+            index = calcSubstring.indexOf(operator);
+            if (index != -1) {
+                index += storeIndex + 1;
+            }
+        }
+        return index;
     }
     
 }
