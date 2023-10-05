@@ -8,9 +8,11 @@ Aarna Chowdhary and Medha Mittal
 
 Project Overview:
 Create a user-friendly calculator that can perform basic math functions (such as PEMDAS) correctly!
+  
   As time permits:
-  - The user will have the ability to save customized mathematical functions and call them using a preset shortcut (i.e. "CALC func_a 3").
+  - The user will have the ability to save customized mathematical functions and call them.
   - The user will have the ability to specify the number of times they wish to repeat a specific function/calculation rather than having to type it out multiple times.
+  - Add a graphical UI to increase user convenience when using the calculator.
 
 
 Architecture Description:
@@ -30,7 +32,8 @@ Architecture Description:
      - Multiply
      - Divide
      - Exponent
-     Methods (as time permits):
+       
+   Methods (as time permits):
      - Root
      - Parentheses - Multistep Calculations
      - Trig - Sin, Cos, Tan
@@ -39,7 +42,9 @@ Architecture Description:
 
 
 Instructions to Run Code:
+Run the UI.java file and follow the instructions to use the calculator.
 
 
 Citations:
+None! :)
 
