@@ -7,7 +7,7 @@ public class Translator {
 
     public String parsing(String calculation) {
         Engine e = new Engine();
-        String[] operators = new String[]{"^", "*", "/", "+", "-"};
+        String[] operators = new String[]{"^", "RT", "*", "/", "+", "-"};
         return parsing_recursive(calculation, e, operators, "");
     }
 
@@ -37,8 +37,7 @@ public class Translator {
     }
 
     public static String callOperatorsToCalculate(String calculation, Engine e, String[] operators) {
-        calculation = calculate(calculation, e, operators[0], "None");
-        for(int i = 1; i < operators.length; i+=2){
+        for(int i = 0; i < operators.length; i+=2){
             calculation = calculate(calculation, e, operators[i], operators[i+1]);
         }
         return calculation;
