@@ -11,28 +11,36 @@ public class Ui {
         printInstructions();
         while (true) {
             String type = getTypeInput(sc);
-            if(Integer.valueOf(type) == 1){
-                String calculation = getCalcInput(sc);
-                String calculation_without_spaces = calculation.replaceAll("\\s", "");
-                if (calculation_without_spaces != "") {
-                    
-                    String result = t.parsing(calculation);
-                    System.out.println("=" + result);
-                    System.out.println();
-                }
-                else {
-                    System.out.println("Thank you for using our lovely calculator! We hope you have a great day! Continue Calculating!\n");
+                if(checkIfEnd(type)){
                     break;
                 }
+            if(Integer.valueOf(type) == 1){
+                String calculation = getCalcInput(sc);
+                if(checkIfEnd(calculation)){
+                    break;
+                }
+                String result = t.parsing(calculation);
+                System.out.println("=" + result);
+                System.out.println();
+                
             } else if(Integer.valueOf(type) == 2){
                 ArrayList<String> equation = getStoreInput(sc);
+                if(equation.size() == 0){
+                    break;
+                }
                 equations.put(equation.get(0), equation.get(1));
-                System.out.println("We have stored the following expression!\n");
+                System.out.println("\nWe have stored the following expression!");
                 System.out.println(equation.get(0) + " = " + equation.get(1) + "\n");
             } else{
                 ArrayList<String> info = getUseEquationInput(sc);
+                if(info.size() == 0){
+                    break;
+                }
                 String expression = equations.get(info.get(0));
                 expression = t.replaceVars(expression, info.get(1));
+                String result = t.parsing(expression);
+                System.out.println("=" + result);
+                System.out.println();
 
                 // PLAN: go through and find all the 'x's in the expression, and then replace them all with the val, then just use calculate
             }
@@ -56,39 +64,64 @@ public class Ui {
     }
 
     public static String getCalcInput(Scanner sc) {
-        System.out.println("Please enter your calculation: ");
+        System.out.println("\nPlease enter your calculation: ");
         String calculation = sc.nextLine();
         return calculation;
     }
 
     public static String getTypeInput(Scanner sc){
-        System.out.println("Please specify wheter you want to calculate an expression or store an expression: ");
+        System.out.println("\nPlease specify wheter you want to calculate an expression, store an expression, or use a previously stored equation: ");
         String type = sc.nextLine();
         return type;
     }
 
     public static ArrayList<String> getStoreInput(Scanner sc) {
-        System.out.println("\n Please enter the variable under which you would like to store your expreesion: ");
-        String name = sc.nextLine();
-        System.out.println("\n Please enter your expression: ");
-        String expression = sc.nextLine();
-
         ArrayList<String> equation = new ArrayList<String>();
+        System.out.println("\nPlease enter the variable under which you would like to store your expression (this cannot be 'x'): ");
+        String name = sc.nextLine();
+        if(checkIfEnd(name)){
+            return equation;
+        }
+
+        System.out.println("\nPlease enter your expression: ");
+        String expression = sc.nextLine();
+        if(checkIfEnd(expression)){
+            return equation;
+        }
+
+        
         equation.add(name);
         equation.add(expression);
         return equation;
     }
 
     public static ArrayList<String> getUseEquationInput(Scanner sc){
-        System.out.println("\n Please enter the variable under which your expression is stored: ");
-        String name = sc.nextLine();
-        System.out.println("\n Please enter your x value: ");
-        String val = sc.nextLine();
-
         ArrayList<String> info = new ArrayList<String>();
+        System.out.println("\nPlease enter the variable under which your expression is stored: ");
+        String name = sc.nextLine();
+        if(checkIfEnd(name)){
+            return info;
+        }
+
+        System.out.println("\nPlease enter your x value: ");
+        String val = sc.nextLine();
+        if(checkIfEnd(val)){
+            return info;
+        }
+
+        
         info.add(name);
         info.add(val);
         return info;
+    }
+
+    public static Boolean checkIfEnd(String input){
+        String input_without_spaces = input.replaceAll("\\s", "");
+        if(input_without_spaces != ""){
+            return false;
+        }
+        System.out.println("\nThank you for using our lovely calculator! We hope you have a great day! Continue Calculating!\n");
+        return true;
     }
 
 }
