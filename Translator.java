@@ -8,6 +8,35 @@ public class Translator {
     public String parsing(String calculation) {
         Engine e = new Engine();
         String[] operators = new String[]{"^", "*", "/", "+", "-"};
+        return parsing_recursive(calculation, e, operators, "");
+    }
+
+    public static String parsing_recursive(String calculation, Engine e, String[] operators, String fp) {
+        int parenIndex = calculation.indexOf("(");
+        int parenEndIndex = calculation.indexOf(")");
+        if (parenIndex == -1 && parenEndIndex > parenIndex) {
+            String smallCalc = calculation.substring(0, parenEndIndex - 1);
+            smallCalc = callOperatorsToCalculate(smallCalc, e, operators);
+            calculation = fp + smallCalc + calculation.substring(parenEndIndex + 1);
+            return callOperatorsToCalculate(calculation, e, operators);
+        }
+        else if (parenEndIndex < parenIndex) {
+            String smallCalc = calculation.substring(0, parenEndIndex - 1);
+            smallCalc = callOperatorsToCalculate(smallCalc, e, operators);
+            calculation = fp + smallCalc + calculation.substring(parenEndIndex + 1);
+            return parsing_recursive(calculation, e, operators, "");
+        }
+        else {
+            String smallCalc = calculation.substring(parenIndex + 2);
+            if (parenIndex == 0) {
+                parenIndex += 1;
+            }
+            String firstPart = calculation.substring(0, parenIndex - 1);
+            return parsing_recursive(smallCalc, e, operators, firstPart);
+        }
+    }
+
+    public static String callOperatorsToCalculate(String calculation, Engine e, String[] operators) {
         calculation = calculate(calculation, e, operators[0], "None");
         for(int i = 1; i < operators.length; i+=2){
             calculation = calculate(calculation, e, operators[i], operators[i+1]);
