@@ -76,9 +76,6 @@ public class Translator {
             index_str = indexAndOperator.get(0);
             index = Integer.valueOf(index_str);
             operator = indexAndOperator.get(1);
-            System.out.println(calculation);
-            System.out.println(index);
-            System.out.println(operator);
         }
         return calculation;
     }
