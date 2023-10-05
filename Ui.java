@@ -32,7 +32,7 @@ public class Ui {
             } else{
                 ArrayList<String> info = getUseEquationInput(sc);
                 String expression = equations.get(info.get(0));
-                System.out.println(t.replaceVars(expression, info.get(1)));
+                expression = t.replaceVars(expression, info.get(1));
 
                 // PLAN: go through and find all the 'x's in the expression, and then replace them all with the val, then just use calculate
             }
