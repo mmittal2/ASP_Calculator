@@ -21,6 +21,10 @@ public class Engine {
         return Math.pow(a, b);
     }
 
+    public Double squareRoot(Double a){
+        return Math.pow(a, 0.5);
+    }
+
     // public static void main(String[] args){
     //     System.out.prDoubleln(divide(5, 2));
     // }
