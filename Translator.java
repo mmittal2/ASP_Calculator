@@ -7,7 +7,7 @@ public class Translator {
 
     public String parsing(String calculation) {
         Engine e = new Engine();
-        String[] operators = new String[]{"^", "RT", "*", "/", "+", "-"};
+        String[] operators = new String[]{"^", "R", "*", "/", "+", "-"};
         return parsing_recursive(calculation, e, operators, "");
     }
 
@@ -62,14 +62,25 @@ public class Translator {
         Double endingIndex = (double) expression.length();
         String firstNum = "";
         String lastNum = "";
-        for(int i = location - 2; i >= 0; i--){
-            if(expression.charAt(i) == ' '){
-                startingIndex = (double) i;
-                break;
-            }
-            firstNum = expression.charAt(i) + firstNum;
-        }
 
+        if (expression.charAt(location) != 'R') {
+            for(int i = location - 2; i >= 0; i--){
+                if(expression.charAt(i) == ' '){
+                    startingIndex = (double) i;
+                    break;
+                }
+                firstNum = expression.charAt(i) + firstNum;
+            }
+            numbers.add(Double.valueOf(firstNum));
+        }
+        else {
+            startingIndex = (double) location - 1.0;
+            if (startingIndex < 0.0) {
+                startingIndex = 0.0;
+            }
+            numbers.add(0.0);
+        }
+        
         for(int i = location + 2; i < expression.length(); i++){
             if(expression.charAt(i) == ' '){
                 endingIndex = (double) i;
@@ -77,9 +88,8 @@ public class Translator {
             }
             lastNum = lastNum + expression.charAt(i);
         }
-        
-        numbers.add(Double.valueOf(firstNum));
         numbers.add(Double.valueOf(lastNum));
+        
         numbers.add(startingIndex);
         numbers.add(endingIndex);
         
@@ -97,6 +107,8 @@ public class Translator {
             double result = 0.0;
             if(operator == "^"){
                 result = e.power((double)(nums.get(0)), (double)(nums.get(1)));
+            } else if (operator == "R") {
+                result = e.squareRoot((double)(nums.get(1)));
             } else if(operator == "*"){
                 result = e.multiply((double)(nums.get(0)), (double)(nums.get(1)));
             } else if(operator == "/"){
@@ -111,7 +123,6 @@ public class Translator {
             DecimalFormat df = new DecimalFormat("#.########");
             String result_str = df.format(result);
             calculation = calculation.substring(0, startingIndex) + " " + result_str + calculation.substring(endingIndex);
-            
             indexAndOperator = findIndex(calculation, operator1, operator2);
             index_str = indexAndOperator.get(0);
             index = Integer.valueOf(index_str);

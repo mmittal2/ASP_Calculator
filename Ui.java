@@ -59,7 +59,7 @@ public class Ui {
         System.out.println("\t- add: +");
         System.out.println("\t- multiply: *");
         System.out.println("\t- divide: /");
-        System.out.println("\t- power: ^\n");
+        System.out.println("\t- power: ^");
         System.out.println("\t- square root: RT\n");
         System.out.println("To close the calculator, simply hit enter again.\n");
     }
