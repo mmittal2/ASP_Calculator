@@ -14,11 +14,24 @@ public class Translator {
     public static String parsing_recursive(String calculation, Engine e, String[] operators, String fp) {
         int parenIndex = calculation.indexOf("(");
         int parenEndIndex = calculation.indexOf(")");
-        if (parenIndex == -1 && parenEndIndex > parenIndex) {
+        if (parenIndex == -1 && parenEndIndex == -1) {
+            calculation = callOperatorsToCalculate(calculation, e, operators);
+            return callOperatorsToCalculate(calculation, e, operators);
+        }
+        else if (parenIndex == -1) {
             String smallCalc = calculation.substring(0, parenEndIndex - 1);
             smallCalc = callOperatorsToCalculate(smallCalc, e, operators);
-            calculation = fp + smallCalc + calculation.substring(parenEndIndex + 1);
-            return callOperatorsToCalculate(calculation, e, operators);
+            if (calculation.substring(parenEndIndex + 1).indexOf(")") != -1) {
+                calculation = fp + "(" + smallCalc + calculation.substring(parenEndIndex + 1);
+            }
+            else {
+                if (smallCalc.charAt(0) != ' ') {
+                    smallCalc = " " + smallCalc;
+                }
+                calculation = fp + smallCalc + calculation.substring(parenEndIndex + 1);
+            }
+            System.out.println(calculation);
+            return parsing_recursive(calculation, e, operators, "");
         }
         else if (parenEndIndex < parenIndex) {
             String smallCalc = calculation.substring(0, parenEndIndex - 1);
@@ -31,7 +44,7 @@ public class Translator {
             if (parenIndex == 0) {
                 parenIndex += 1;
             }
-            String firstPart = calculation.substring(0, parenIndex - 1);
+            String firstPart = fp + " " + calculation.substring(0, parenIndex - 1);
             return parsing_recursive(smallCalc, e, operators, firstPart);
         }
     }
