@@ -61,6 +61,11 @@ public class Ui {
         System.out.println("\t- divide: /");
         System.out.println("\t- power: ^");
         System.out.println("\t- square root: R\n");
+        System.out.println("\t- sin: S\n");
+        System.out.println("\t- cos: C\n");
+        System.out.println("\t- tan: T\n");
+        System.out.println("\t- log: L\n");
+        System.out.println("\t- ln: N\n");
         System.out.println("To close the calculator, simply hit enter again.\n");
     }
 
