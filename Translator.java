@@ -21,16 +21,15 @@ public class Translator {
         else if (parenIndex == -1) {
             String smallCalc = calculation.substring(0, parenEndIndex - 1);
             smallCalc = callOperatorsToCalculate(smallCalc, e, operators);
+            if (smallCalc.charAt(0) != ' ') {
+                    smallCalc = " " + smallCalc;
+                }
             if (calculation.substring(parenEndIndex + 1).indexOf(")") != -1) {
                 calculation = fp + "(" + smallCalc + calculation.substring(parenEndIndex + 1);
             }
             else {
-                if (smallCalc.charAt(0) != ' ') {
-                    smallCalc = " " + smallCalc;
-                }
                 calculation = fp + smallCalc + calculation.substring(parenEndIndex + 1);
             }
-            System.out.println(calculation);
             return parsing_recursive(calculation, e, operators, "");
         }
         else if (parenEndIndex < parenIndex) {
