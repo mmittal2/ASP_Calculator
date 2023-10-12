@@ -7,7 +7,7 @@ public class Translator {
 
     public String parsing(String calculation) {
         Engine e = new Engine();
-        String[] operators = new String[]{"^", "R", "*", "/", "+", "-"};
+        String[] operators = new String[]{"^", "R", "L", "N", "S", "C", "T", "None", "*", "/", "+", "-"};
         return parsing_recursive(calculation, e, operators, "");
     }
 
@@ -25,7 +25,7 @@ public class Translator {
                     smallCalc = " " + smallCalc;
                 }
             if (calculation.substring(parenEndIndex + 1).indexOf(")") != -1) {
-                calculation = fp + "(" + smallCalc + calculation.substring(parenEndIndex + 1);
+                calculation = fp + " (" + smallCalc + calculation.substring(parenEndIndex + 1);
             }
             else {
                 calculation = fp + smallCalc + calculation.substring(parenEndIndex + 1);
@@ -63,7 +63,15 @@ public class Translator {
         String firstNum = "";
         String lastNum = "";
 
-        if (expression.charAt(location) != 'R') {
+        ArrayList<Character> oneNumOperations = new ArrayList<Character>();
+        oneNumOperations.add('R');
+        oneNumOperations.add('L');
+        oneNumOperations.add('N');
+        oneNumOperations.add('S');
+        oneNumOperations.add('C');
+        oneNumOperations.add('T');
+
+        if (!(oneNumOperations.contains(expression.charAt(location)))) {
             for(int i = location - 2; i >= 0; i--){
                 if(expression.charAt(i) == ' '){
                     startingIndex = (double) i;
@@ -71,7 +79,12 @@ public class Translator {
                 }
                 firstNum = expression.charAt(i) + firstNum;
             }
-            numbers.add(Double.valueOf(firstNum));
+            if (firstNum == "PI") {
+                numbers.add(Math.PI);
+            }
+            else {
+                numbers.add(Double.valueOf(firstNum));
+            }
         }
         else {
             startingIndex = (double) location - 1.0;
@@ -88,7 +101,12 @@ public class Translator {
             }
             lastNum = lastNum + expression.charAt(i);
         }
-        numbers.add(Double.valueOf(lastNum));
+        if (lastNum.charAt(0) == 'P') {
+            numbers.add(Math.PI);
+        }
+        else {
+            numbers.add(Double.valueOf(lastNum));
+        }
         
         numbers.add(startingIndex);
         numbers.add(endingIndex);
@@ -109,6 +127,16 @@ public class Translator {
                 result = e.power((double)(nums.get(0)), (double)(nums.get(1)));
             } else if (operator == "R") {
                 result = e.squareRoot((double)(nums.get(1)));
+            } else if (operator == "L") {
+                result = e.log((double)(nums.get(1)));
+            } else if (operator == "N") {
+                result = e.ln((double)(nums.get(1)));
+            } else if (operator == "S") {
+                result = e.sin((double)(nums.get(1)));
+            } else if (operator == "C") {
+                result = e.cos((double)(nums.get(1)));
+            } else if (operator == "T") {
+                result = e.tan((double)(nums.get(1)));
             } else if(operator == "*"){
                 result = e.multiply((double)(nums.get(0)), (double)(nums.get(1)));
             } else if(operator == "/"){
@@ -120,9 +148,7 @@ public class Translator {
             }
             int endingIndex = nums.get(3).intValue();
             int startingIndex = nums.get(2).intValue();
-            DecimalFormat df = new DecimalFormat("#.########");
-            String result_str = df.format(result);
-            calculation = calculation.substring(0, startingIndex) + " " + result_str + calculation.substring(endingIndex);
+            calculation = calculation.substring(0, startingIndex) + " " + Double.toString(result) + calculation.substring(endingIndex);
             indexAndOperator = findIndex(calculation, operator1, operator2);
             index_str = indexAndOperator.get(0);
             index = Integer.valueOf(index_str);

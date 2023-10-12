@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Ui {
@@ -39,6 +38,9 @@ public class Ui {
                 String expression = equations.get(info.get(0));
                 expression = t.replaceVars(expression, info.get(1));
                 String result = t.parsing(expression);
+                Double result_dec = Double.valueOf(result);
+                DecimalFormat df = new DecimalFormat("#.######");
+                result = df.format(result_dec);
                 System.out.println("=" + result);
                 System.out.println();
 
@@ -60,12 +62,13 @@ public class Ui {
         System.out.println("\t- multiply: *");
         System.out.println("\t- divide: /");
         System.out.println("\t- power: ^");
-        System.out.println("\t- square root: R\n");
-        System.out.println("\t- sin: S\n");
-        System.out.println("\t- cos: C\n");
-        System.out.println("\t- tan: T\n");
-        System.out.println("\t- log: L\n");
-        System.out.println("\t- ln: N\n");
+        System.out.println("\t- square root: R");
+        System.out.println("\t- sin: S");
+        System.out.println("\t- cos: C");
+        System.out.println("\t- tan: T");
+        System.out.println("\t- log: L");
+        System.out.println("\t- ln: N");
+        System.out.println("\t- pi: PI\n");
         System.out.println("To close the calculator, simply hit enter again.\n");
     }
 
