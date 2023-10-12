@@ -26,28 +26,23 @@ public class Engine {
     }
 
     public Double sin(Double a) {
-        return 0.0;
-        // COMPLETE
+        return Math.sin(a);
     }
 
     public Double cos(Double a) {
-        return 0.0;
-        // COMPLETE
+        return Math.cos(a);
     }
 
     public Double tan(Double a) {
-        return 0.0;
-        // COMPLETE
+        return Math.tan(a);
     }
 
     public Double log(Double a) {
-        return 0.0;
-        // COMPLETE
+        return Math.log10(a);
     }
 
     public Double ln(Double a) {
-        return 0.0;
-        // COMPLETE
+        return Math.log(a);
     }
 
     // public static void main(String[] args){
