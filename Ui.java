@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Ui {
     public static void main(String[] args) {
+        
         Scanner sc = new Scanner(System.in);
         Translator t = new Translator();
         Hashtable<String, String> equations = new Hashtable<String, String>();
