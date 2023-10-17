@@ -78,7 +78,7 @@ public class Translator {
                 }
                 firstNum = expression.charAt(i) + firstNum;
             }
-            if (firstNum == "PI") {
+            if (firstNum.equals("PI")) {
                 numbers.add(Math.PI);
             }
             else {
