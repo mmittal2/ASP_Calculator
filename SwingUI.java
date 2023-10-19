@@ -2,6 +2,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 public class SwingUI {
+
+    static String[] expressions = new String[9];
+    static int numOfExpressions = 0;
+    static int currentExpression = 0;
     public static void main(String[] args){
         JFrame frame = new JFrame();
         frame.setSize(300, 500);
@@ -23,6 +27,8 @@ public class SwingUI {
         panelButtons.setLayout(new GridLayout(9, 3));
 
         panelEquals.setLayout(new GridLayout(1, 1));
+
+        panelExpressions.setLayout(new GridLayout(3, 1));
         
 
         JButton button1 = new JButton("1");
@@ -55,6 +61,12 @@ public class SwingUI {
 
         JButton buttonClear = new JButton("Clear");
         JButton buttonDelete = new JButton("Del");
+
+        JButton buttonStoreExpression = new JButton("Store Expression");
+        JButton buttonX = new JButton("x");
+        JButton buttonGetExpression = new JButton("Get Expression");
+
+        JButton buttonXVal = new JButton("X Value");
 
         
 
@@ -119,6 +131,12 @@ public class SwingUI {
         button0.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 String text = textType.getText() + "0";
+                textType.setText(text);  
+            }  
+        });
+        buttonX.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){  
+                String text = textType.getText() + "x";
                 textType.setText(text);  
             }  
         });
@@ -260,6 +278,39 @@ public class SwingUI {
             }  
         });
 
+        buttonStoreExpression.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){  
+                String text = textType.getText();
+                expressions[numOfExpressions] = text;
+                numOfExpressions++;
+                textType.setText("");
+            }  
+        });
+
+        buttonGetExpression.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){  
+                String text = textType.getText();
+                currentExpression = Integer.valueOf(text) - 1;
+                textType.setText("");
+            }  
+        });
+
+        buttonXVal.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){  
+                String text = textType.getText();
+                String expression = expressions[currentExpression];
+
+                Translator t = new Translator();
+                
+                expression = t.replaceVars(expression, text);
+                text = t.parsing(expression);
+
+
+                textType.setText(text);
+            }  
+        });
+
+
 
 
 
@@ -269,8 +320,14 @@ public class SwingUI {
             buttonPlus, buttonMinus, buttonMultiply, buttonDivide, buttonNeg, buttonOpenPar, buttonClosePar, buttonPower, 
             buttonSquareRoot, buttonSin, buttonCos, buttonTan, buttonLog, buttonNaturalLog, buttonPi, buttonClear, buttonDelete};
 
+        JButton[] buttonsList2 = new JButton[]{buttonX, buttonStoreExpression, buttonGetExpression, buttonXVal};
+
         for(int i = 0; i < buttonsList.length; i++){
             panelButtons.add(buttonsList[i]);
+        }
+
+        for(int i = 0; i < buttonsList2.length; i++){
+            panelExpressions.add(buttonsList2[i]);
         }
 
         panelEquals.add(buttonEquals);
