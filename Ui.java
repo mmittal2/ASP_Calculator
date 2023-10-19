@@ -44,8 +44,6 @@ public class Ui {
                 result = df.format(result_dec);
                 System.out.println("=" + result);
                 System.out.println();
-
-                // PLAN: go through and find all the 'x's in the expression, and then replace them all with the val, then just use calculate
             }
         }
         sc.close();
