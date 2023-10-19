@@ -15,11 +15,17 @@ public class Translator {
         int parenEndIndex = calculation.indexOf(")");
         if (parenIndex == -1 && parenEndIndex == -1) {
             calculation = callOperatorsToCalculate(calculation, e, operators);
+            if (calculation.equals(" User error. Invalid Input.")) {
+                return calculation;
+            }
             return callOperatorsToCalculate(calculation, e, operators);
         }
         else if (parenIndex == -1) {
             String smallCalc = calculation.substring(0, parenEndIndex - 1);
             smallCalc = callOperatorsToCalculate(smallCalc, e, operators);
+            if (smallCalc.equals(" User error. Invalid Input.")) {
+                return smallCalc;
+            }
             if (smallCalc.charAt(0) != ' ') {
                     smallCalc = " " + smallCalc;
                 }
@@ -34,6 +40,9 @@ public class Translator {
         else if (parenEndIndex < parenIndex) {
             String smallCalc = calculation.substring(0, parenEndIndex - 1);
             smallCalc = callOperatorsToCalculate(smallCalc, e, operators);
+            if (smallCalc.equals(" User error. Invalid Input.")) {
+                return smallCalc;
+            }
             calculation = fp + smallCalc + calculation.substring(parenEndIndex + 1);
             return parsing_recursive(calculation, e, operators, "");
         }
@@ -100,7 +109,7 @@ public class Translator {
             }
             lastNum = lastNum + expression.charAt(i);
         }
-        if (lastNum.charAt(0) == 'P') {
+        if (lastNum.equals("PI")) {
             numbers.add(Math.PI);
         }
         else {
@@ -123,12 +132,24 @@ public class Translator {
             ArrayList<Double> nums = getNumbers(calculation, index);
             double result = 0.0;
             if(operator == "^"){
+                if (nums.get(0) < 0 && nums.get(1) < 1 && nums.get(1) > 0) {
+                    return " User error. Invalid input.";
+                }
                 result = e.power((double)(nums.get(0)), (double)(nums.get(1)));
             } else if (operator == "R") {
+                if (nums.get(1) < 0) {
+                    return " User error. Invalid input.";
+                }
                 result = e.squareRoot((double)(nums.get(1)));
             } else if (operator == "L") {
+                if (nums.get(1) <= 0) {
+                    return " User error. Invalid input.";
+                }
                 result = e.log((double)(nums.get(1)));
             } else if (operator == "N") {
+                if (nums.get(1) <= 0) {
+                    return " User error. Invalid input.";
+                }
                 result = e.ln((double)(nums.get(1)));
             } else if (operator == "S") {
                 result = e.sin((double)(nums.get(1)));
