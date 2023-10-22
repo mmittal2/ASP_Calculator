@@ -13,6 +13,29 @@ public class SwingUI2 {
         JFrame frame = new JFrame();
         frame.setSize(500, 600);
 
+        JFrame frameInstructions = new JFrame();
+        frameInstructions.setSize(500, 500);
+
+        JTextArea textInstructions = new JTextArea();
+        textInstructions.setLineWrap(true);
+        textInstructions.append("Instructions for how to use the calculator:");
+        textInstructions.append("\n\t2. The calculator can perform the following functions: subtract, add, multiply, divide, and powers.");
+        textInstructions.append("\n\t3. Type a space between all numbers and operators (ex: 23 * 4).");
+        textInstructions.append("\n  These are the symbols that represent each calculation:");
+        textInstructions.append("\n\t- subtract: -");
+        textInstructions.append("\n\t- add: +");
+        textInstructions.append("\n\t- multiply: *");
+        textInstructions.append("\n\t- divide: /");
+        textInstructions.append("\n\t- power: ^");
+        textInstructions.append("\n\t- square root: R");
+        textInstructions.append("\n\t- sin: S");
+        textInstructions.append("\n\t- cos: C");
+        textInstructions.append("\n\t- tan: T");
+        textInstructions.append("\n\t- log: L");
+        textInstructions.append("\n\t- ln: N");
+        textInstructions.append("\n\t- pi: PI\n");
+        textInstructions.append("\nTo close the calculator, simply hit enter again.\n");
+
         // JPanel panelUltimate = new JPanel();
         // panelUltimate.setLayout(new GridLayout(2, 2));
 
@@ -359,6 +382,7 @@ public class SwingUI2 {
 
         // frame.add(textHistory);
 
+
         panelGroup.add(textType);
         panelGroup.add(panelButtons);
         panelGroup.add(panelEquals);
@@ -373,12 +397,16 @@ public class SwingUI2 {
         sp.setOrientation(SwingConstants.HORIZONTAL);
 
         frame.add(sp);
+        frameInstructions.add(textInstructions);
 
         //frame.setLayout(new GridLayout(2, 2));
         // frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        frameInstructions.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameInstructions.setVisible(true);
 
     }
 }
