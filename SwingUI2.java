@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import javafx.geometry.VerticalDirection;
 public class SwingUI2 {
 
     static String[] expressions = new String[9];
@@ -15,43 +14,31 @@ public class SwingUI2 {
         JFrame frame = new JFrame();
         frame.setSize(500, 600);
 
-        JFrame frameInstructions = new JFrame();
-        frameInstructions.setSize(500, 500);
 
         JTextArea textInstructions = new JTextArea();
         textInstructions.setLineWrap(true);
-        textInstructions.append("Instructions for how to use the calculator:");
-        textInstructions.append("\n\t2. The calculator can perform the following functions: subtract, add, multiply, divide, and powers.");
-        textInstructions.append("\n\t3. Type a space between all numbers and operators (ex: 23 * 4).");
-        textInstructions.append("\n  These are the symbols that represent each calculation:");
-        textInstructions.append("\n\t- subtract: -");
-        textInstructions.append("\n\t- add: +");
-        textInstructions.append("\n\t- multiply: *");
-        textInstructions.append("\n\t- divide: /");
-        textInstructions.append("\n\t- power: ^");
-        textInstructions.append("\n\t- square root: R");
-        textInstructions.append("\n\t- sin: S");
-        textInstructions.append("\n\t- cos: C");
-        textInstructions.append("\n\t- tan: T");
-        textInstructions.append("\n\t- log: L");
-        textInstructions.append("\n\t- ln: N");
-        textInstructions.append("\n\t- pi: PI\n");
-        textInstructions.append("\nTo close the calculator, simply hit enter again.\n");
 
-        // JPanel panelUltimate = new JPanel();
-        // panelUltimate.setLayout(new GridLayout(2, 2));
 
         JPanel panelGroup = new JPanel();
-        // panelGroup.setLayout(new GridLayout(3, 1));
         panelGroup.setLayout(new BoxLayout(panelGroup, BoxLayout.Y_AXIS));
 
-        //JPanel panel1 = new JPanel();
+        JPanel panelGroupHistory = new JPanel();
+        panelGroupHistory.setLayout(new BoxLayout(panelGroupHistory, BoxLayout.Y_AXIS));
+
+        JPanel panelGroupExpressions = new JPanel();
+        panelGroupExpressions.setLayout(new BoxLayout(panelGroupExpressions, BoxLayout.Y_AXIS));
 
         JPanel panelButtons = new JPanel();
         panelButtons.setLayout(new GridLayout(9, 3));
 
+        JLabel textHistoryLabel = new JLabel("HISTORY");
+        textHistoryLabel.setFont(new Font("Serif", Font.BOLD, 15));
+
         JPanel panelEquals = new JPanel();
         panelEquals.setLayout(new GridLayout(1, 1));
+
+        JLabel textExpressionsLabel = new JLabel("STORED EXPRESSIONS");
+        textExpressionsLabel.setFont(new Font("Serif", Font.BOLD, 15));
 
         JPanel panelExpressions = new JPanel();
 
@@ -60,11 +47,6 @@ public class SwingUI2 {
         JTextField textType = new JTextField();
 
         JTextArea textExpressions = new JTextArea();
-
-        // textField.setBounds(10, 10, 50, 50);
-
-        textExpressions.setText("Expressions go here!");
-        textHistory.setText("HISTORY");
 
         JPanel panelTop = new JPanel();
         panelTop.setLayout(new GridLayout(1, 2));
@@ -112,6 +94,8 @@ public class SwingUI2 {
 
         
         JButton buttonAnswer = new JButton("Ans");
+
+        JButton buttonInstructions = new JButton("Get Instructions");
 
         button1.setBounds(10, 20, 30, 40);
 
@@ -379,6 +363,31 @@ public class SwingUI2 {
             }  
         });
 
+        buttonInstructions.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){  
+                JFrame frameInstructions = new JFrame();
+                frameInstructions.setSize(800, 270);
+
+                JTextArea textInstructions = new JTextArea();
+                textInstructions.setLineWrap(true);
+                textInstructions.append("\nInstructions for how to use the calculator:");
+                textInstructions.append("\n          1. After entering the calculation using the buttons, click the '=' button to get the result.");
+                textInstructions.append("\n          2. Use the 'Root' button to take the square root of a number.");
+                textInstructions.append("\n          3. For root, sin, cos, tan, log, and ln, first click the button then enter the number.");
+                textInstructions.append("\n          4. Below are the steps for using stored expressions in the calculator:");
+                textInstructions.append("\n                  - To store an expression, first enter it in the calculator (use the 'x' button) and then click the 'Store Expression' button.");
+                textInstructions.append("\n                  - To evaluate an expression for a certain value of x, follow the steps below:");
+                textInstructions.append("\n                          1. Enter the number of the stored expression (as shown by the panel on the right) and click the 'Get Expression' button.");
+                textInstructions.append("\n                          2. Enter the value of x and click the 'X Value' button.");
+                textInstructions.append("\n                          3. The result will be displayed in the calculator!");
+                textInstructions.append("\n\nWe wish you well on your calculating adventures!!!!!");
+
+                frameInstructions.add(textInstructions);
+                frameInstructions.setVisible(true);
+            }  
+        });
+
+
 
 
 
@@ -386,7 +395,7 @@ public class SwingUI2 {
             buttonPlus, buttonMinus, buttonMultiply, buttonDivide, buttonNeg, buttonOpenPar, buttonClosePar, buttonPower, 
             buttonSquareRoot, buttonSin, buttonCos, buttonTan, buttonLog, buttonNaturalLog, buttonPi, buttonClear, buttonDelete};
 
-        JButton[] buttonsList2 = new JButton[]{buttonAnswer, buttonX, buttonStoreExpression, buttonGetExpression, buttonXVal};
+        JButton[] buttonsList2 = new JButton[]{buttonAnswer, buttonX, buttonStoreExpression, buttonGetExpression, buttonXVal, buttonInstructions};
 
         for(int i = 0; i < buttonsList.length; i++){
             panelButtons.add(buttonsList[i]);
@@ -397,45 +406,32 @@ public class SwingUI2 {
         }
 
         panelEquals.add(buttonEquals);
-        // panel1.add(button1);
-        // panel1.add(button2);
-        // panel1.add(button3);
-        // panel1.add(button4);
-        // panel1.add(button5);
-        // panel1.add(button6);
-        // panel1.add(button7);
-        // panel1.add(button8);
-        // panel1.add(button9);
-        // panel1.add(button0);
-        // panel1.add(buttonPlus);
-
-        // frame.add(textHistory);
 
 
         panelGroup.add(textType);
         panelGroup.add(panelButtons);
         panelGroup.add(panelEquals);
 
+        panelGroupHistory.add(textHistoryLabel);
+        panelGroupHistory.add(textHistory);
+
+        panelGroupExpressions.add(textExpressionsLabel);
+        panelGroupExpressions.add(textExpressions);
+
         panelTop.add(panelGroup);
-        panelTop.add(new JScrollPane(textHistory));
+        panelTop.add(new JScrollPane(panelGroupHistory));
 
         panelBottom.add(panelExpressions);
-        panelBottom.add(textExpressions);
+        panelBottom.add(panelGroupExpressions);
 
         JSplitPane sp = new JSplitPane(SwingConstants.HORIZONTAL, panelTop, panelBottom);
         sp.setOrientation(SwingConstants.HORIZONTAL);
 
         frame.add(sp);
-        frameInstructions.add(textInstructions);
-
-        //frame.setLayout(new GridLayout(2, 2));
-        // frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        frameInstructions.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameInstructions.setVisible(true);
 
     }
 }
