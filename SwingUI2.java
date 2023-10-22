@@ -93,12 +93,12 @@ public class SwingUI2 {
         JButton buttonOpenPar = new JButton("(");
         JButton buttonClosePar = new JButton(")");
         JButton buttonPower = new JButton("^");
-        JButton buttonSquareRoot = new JButton("R");
-        JButton buttonSin = new JButton("S");
-        JButton buttonCos = new JButton("C");
-        JButton buttonTan = new JButton("T");
-        JButton buttonLog = new JButton("L");
-        JButton buttonNaturalLog = new JButton("N");
+        JButton buttonSquareRoot = new JButton("Root");
+        JButton buttonSin = new JButton("Sin");
+        JButton buttonCos = new JButton("Cos");
+        JButton buttonTan = new JButton("Tan");
+        JButton buttonLog = new JButton("Log");
+        JButton buttonNaturalLog = new JButton("Ln");
         JButton buttonPi = new JButton("PI");
 
         JButton buttonClear = new JButton("Clear");
@@ -295,49 +295,49 @@ public class SwingUI2 {
 
         buttonSquareRoot.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                String text = textType.getText() + " R ";
+                String text = textType.getText() + "R ";
                 textType.setText(text);  
             }  
         });
 
         buttonSin.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                String text = textType.getText() + " S ";
+                String text = textType.getText() + "S ";
                 textType.setText(text);  
             }  
         });
 
         buttonCos.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                String text = textType.getText() + " C ";
+                String text = textType.getText() + "C ";
                 textType.setText(text);  
             }  
         });
 
         buttonTan.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                String text = textType.getText() + " T ";
+                String text = textType.getText() + "T ";
                 textType.setText(text);  
             }  
         });
 
         buttonLog.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                String text = textType.getText() + " L ";
+                String text = textType.getText() + "L ";
                 textType.setText(text);  
             }  
         });
 
         buttonNaturalLog.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                String text = textType.getText() + " N ";
+                String text = textType.getText() + "N ";
                 textType.setText(text);  
             }  
         });
 
         buttonPi.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
-                String text = textType.getText() + " PI ";
+                String text = textType.getText() + "PI";
                 textType.setText(text);  
             }  
         });
