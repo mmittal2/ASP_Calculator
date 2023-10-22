@@ -6,6 +6,7 @@ public class SwingUI {
     static String[] expressions = new String[9];
     static int numOfExpressions = 0;
     static int currentExpression = 0;
+    static String previousAnswer = "";
     public static void main(String[] args){
         JFrame frame = new JFrame();
         frame.setSize(300, 500);
@@ -18,7 +19,7 @@ public class SwingUI {
 
         JPanel panelExpressions = new JPanel();
 
-        // JTextField textHistory = new JTextField();
+        JTextArea textHistory = new JTextArea();
 
         JTextField textType = new JTextField();  
 
@@ -67,6 +68,8 @@ public class SwingUI {
         JButton buttonGetExpression = new JButton("Get Expression");
 
         JButton buttonXVal = new JButton("X Value");
+
+        JButton buttonAnswer = new JButton("Ans");
 
         
 
@@ -134,12 +137,26 @@ public class SwingUI {
                 textType.setText(text);  
             }  
         });
+        buttonAnswer.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){  
+                String text = textType.getText() + previousAnswer;
+                textType.setText(text);  
+            }  
+        });
         buttonX.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 String text = textType.getText() + "x";
                 textType.setText(text);  
             }  
         });
+
+        buttonX.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){  
+                String text = textType.getText() + "x";
+                textType.setText(text);  
+            }  
+        });
+
         buttonEquals.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 Translator t = new Translator();
@@ -147,11 +164,24 @@ public class SwingUI {
 
                 String text = textType.getText();
 
+                // String history_text = textHistory.getText() + "\n" + text;
+
+                textHistory.append("\n" + text);
+
+                
+
                 // if(text.charAt(text.length() - 1) == ' '){
                 //     text = text.substring(0, text.length() - 1);
                 // }
                 // System.out.println(text + ".");
                 text = t.parsing(text);
+
+                previousAnswer = text;
+
+                previousAnswer = previousAnswer.replaceAll("\\s", "");
+
+                textHistory.append("\n" + "   = " + text);
+                textHistory.append("\n");
                 textType.setText(text);  
             }  
         });
@@ -320,7 +350,7 @@ public class SwingUI {
             buttonPlus, buttonMinus, buttonMultiply, buttonDivide, buttonNeg, buttonOpenPar, buttonClosePar, buttonPower, 
             buttonSquareRoot, buttonSin, buttonCos, buttonTan, buttonLog, buttonNaturalLog, buttonPi, buttonClear, buttonDelete};
 
-        JButton[] buttonsList2 = new JButton[]{buttonX, buttonStoreExpression, buttonGetExpression, buttonXVal};
+        JButton[] buttonsList2 = new JButton[]{buttonAnswer, buttonX, buttonStoreExpression, buttonGetExpression, buttonXVal};
 
         for(int i = 0; i < buttonsList.length; i++){
             panelButtons.add(buttonsList[i]);
@@ -343,7 +373,7 @@ public class SwingUI {
         // panel1.add(button0);
         // panel1.add(buttonPlus);
 
-        // frame.add(textHistory);
+        frame.add(new JScrollPane(textHistory));
         frame.add(textType);
         frame.add(panelButtons);
         frame.add(panelEquals);
