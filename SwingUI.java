@@ -23,6 +23,8 @@ public class SwingUI {
 
         JTextField textType = new JTextField();  
 
+        JTextArea textExpressions = new JTextArea();
+
         // textField.setBounds(10, 10, 50, 50);
 
         panelButtons.setLayout(new GridLayout(9, 3));
@@ -143,13 +145,6 @@ public class SwingUI {
                 textType.setText(text);  
             }  
         });
-        buttonX.addActionListener(new ActionListener(){  
-            public void actionPerformed(ActionEvent e){  
-                String text = textType.getText() + "x";
-                textType.setText(text);  
-            }  
-        });
-
         buttonX.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 String text = textType.getText() + "x";
@@ -314,6 +309,9 @@ public class SwingUI {
                 expressions[numOfExpressions] = text;
                 numOfExpressions++;
                 textType.setText("");
+
+                textExpressions.append("\n" + String.valueOf(numOfExpressions) + ": y = " + text);
+
             }  
         });
 
@@ -321,7 +319,7 @@ public class SwingUI {
             public void actionPerformed(ActionEvent e){  
                 String text = textType.getText();
                 currentExpression = Integer.valueOf(text) - 1;
-                textType.setText("");
+                textType.setText("x = ");
             }  
         });
 
@@ -329,6 +327,8 @@ public class SwingUI {
             public void actionPerformed(ActionEvent e){  
                 String text = textType.getText();
                 String expression = expressions[currentExpression];
+
+                text = text.substring(4);
 
                 Translator t = new Translator();
                 
@@ -378,6 +378,7 @@ public class SwingUI {
         frame.add(panelButtons);
         frame.add(panelEquals);
         frame.add(panelExpressions);
+        frame.add(textExpressions);
         frame.setLayout(null);  
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
