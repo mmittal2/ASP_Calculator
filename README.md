@@ -42,7 +42,7 @@ Architecture Description:
 
 
 Instructions to Run Code:
-Run the UI.java file and follow the instructions to use the calculator.
+Run the SwingUI2.java file and press the 'Get Instructions' button to view the instructions.
 
 
 Citations:
