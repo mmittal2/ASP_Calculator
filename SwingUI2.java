@@ -9,6 +9,8 @@ public class SwingUI2 {
     static int numOfExpressions = 0;
     static int currentExpression = 0;
 
+    static String previousAnswer = "";
+
     public static void main(String[] args){
         JFrame frame = new JFrame();
         frame.setSize(500, 600);
@@ -53,11 +55,11 @@ public class SwingUI2 {
 
         JPanel panelExpressions = new JPanel();
 
-        JTextField textHistory = new JTextField();
+        JTextArea textHistory = new JTextArea();
 
         JTextField textType = new JTextField();
 
-        JTextField textExpressions = new JTextField();
+        JTextArea textExpressions = new JTextArea();
 
         // textField.setBounds(10, 10, 50, 50);
 
@@ -109,6 +111,7 @@ public class SwingUI2 {
         JButton buttonXVal = new JButton("X Value");
 
         
+        JButton buttonAnswer = new JButton("Ans");
 
         button1.setBounds(10, 20, 30, 40);
 
@@ -174,6 +177,14 @@ public class SwingUI2 {
                 textType.setText(text);  
             }  
         });
+
+        buttonAnswer.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){  
+                String text = textType.getText() + previousAnswer;
+                textType.setText(text);  
+            }  
+        });
+
         buttonX.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 String text = textType.getText() + "x";
@@ -187,11 +198,24 @@ public class SwingUI2 {
 
                 String text = textType.getText();
 
+                // String history_text = textHistory.getText() + "\n" + text;
+
+                textHistory.append("\n" + text);
+
+                
+
                 // if(text.charAt(text.length() - 1) == ' '){
                 //     text = text.substring(0, text.length() - 1);
                 // }
                 // System.out.println(text + ".");
                 text = t.parsing(text);
+
+                previousAnswer = text;
+
+                previousAnswer = previousAnswer.replaceAll("\\s", "");
+
+                textHistory.append("\n" + "   = " + text);
+                textHistory.append("\n");
                 textType.setText(text);  
             }  
         });
@@ -324,6 +348,9 @@ public class SwingUI2 {
                 expressions[numOfExpressions] = text;
                 numOfExpressions++;
                 textType.setText("");
+
+                textExpressions.append("\n" + String.valueOf(numOfExpressions) + ": y = " + text);
+
             }  
         });
 
@@ -331,7 +358,7 @@ public class SwingUI2 {
             public void actionPerformed(ActionEvent e){  
                 String text = textType.getText();
                 currentExpression = Integer.valueOf(text) - 1;
-                textType.setText("");
+                textType.setText("x = ");
             }  
         });
 
@@ -339,6 +366,8 @@ public class SwingUI2 {
             public void actionPerformed(ActionEvent e){  
                 String text = textType.getText();
                 String expression = expressions[currentExpression];
+
+                text = text.substring(4);
 
                 Translator t = new Translator();
                 
@@ -357,7 +386,7 @@ public class SwingUI2 {
             buttonPlus, buttonMinus, buttonMultiply, buttonDivide, buttonNeg, buttonOpenPar, buttonClosePar, buttonPower, 
             buttonSquareRoot, buttonSin, buttonCos, buttonTan, buttonLog, buttonNaturalLog, buttonPi, buttonClear, buttonDelete};
 
-        JButton[] buttonsList2 = new JButton[]{buttonX, buttonStoreExpression, buttonGetExpression, buttonXVal};
+        JButton[] buttonsList2 = new JButton[]{buttonAnswer, buttonX, buttonStoreExpression, buttonGetExpression, buttonXVal};
 
         for(int i = 0; i < buttonsList.length; i++){
             panelButtons.add(buttonsList[i]);
@@ -388,7 +417,7 @@ public class SwingUI2 {
         panelGroup.add(panelEquals);
 
         panelTop.add(panelGroup);
-        panelTop.add(textHistory);
+        panelTop.add(new JScrollPane(textHistory));
 
         panelBottom.add(panelExpressions);
         panelBottom.add(textExpressions);
