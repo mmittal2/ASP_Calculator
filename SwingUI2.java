@@ -1,8 +1,11 @@
+// THIS IS FINAL UI 
 import java.awt.*;  
 import java.awt.event.*;
 import javax.swing.*;
 
 public class SwingUI2 {
+
+    // defining variables that are used for storing/getting expressions
 
     static String[] expressions = new String[9];
     static int numOfExpressions = 0;
@@ -11,10 +14,11 @@ public class SwingUI2 {
     static String previousAnswer = "";
 
     public static void main(String[] args){
+        // creating the frame for swing gui
         JFrame frame = new JFrame();
         frame.setSize(500, 600);
 
-
+        // creating textAreas, textFields, labels, and panels for the calculator
         JTextArea textInstructions = new JTextArea();
         textInstructions.setLineWrap(true);
 
@@ -54,6 +58,7 @@ public class SwingUI2 {
         JPanel panelBottom = new JPanel();
         panelBottom.setLayout(new GridLayout(1, 2));
         
+        // creating all the buttons
 
         JButton button1 = new JButton("1");
         JButton button2 = new JButton("2");
@@ -98,6 +103,8 @@ public class SwingUI2 {
         JButton buttonInstructions = new JButton("Get Instructions");
 
         button1.setBounds(10, 20, 30, 40);
+
+        // creating all the button methods so they work appropriately based on their function 
 
         button1.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
@@ -175,6 +182,7 @@ public class SwingUI2 {
                 textType.setText(text);  
             }  
         });
+
         buttonEquals.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 Translator t = new Translator();
@@ -182,22 +190,17 @@ public class SwingUI2 {
 
                 String text = textType.getText();
 
-                // String history_text = textHistory.getText() + "\n" + text;
-
+                // adding the expression to the history
                 textHistory.append("\n" + text);
-
-                
-
-                // if(text.charAt(text.length() - 1) == ' '){
-                //     text = text.substring(0, text.length() - 1);
-                // }
-                // System.out.println(text + ".");
+               
+                // calling translator to get the answer
                 text = t.parsing(text);
 
                 previousAnswer = text;
 
                 previousAnswer = previousAnswer.replaceAll("\\s", "");
 
+                // adding the answer to the history
                 textHistory.append("\n" + "   = " + text);
                 textHistory.append("\n");
                 textType.setText(text);  
@@ -329,10 +332,13 @@ public class SwingUI2 {
         buttonStoreExpression.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
                 String text = textType.getText();
+
+                // adding expression to the array with stored expressions
                 expressions[numOfExpressions] = text;
                 numOfExpressions++;
                 textType.setText("");
 
+                // displays stored expression
                 textExpressions.append("\n" + String.valueOf(numOfExpressions) + ": y = " + text);
 
             }  
@@ -347,14 +353,17 @@ public class SwingUI2 {
         });
 
         buttonXVal.addActionListener(new ActionListener(){  
-            public void actionPerformed(ActionEvent e){  
+            public void actionPerformed(ActionEvent e){ 
+                // getting x value and expression the user wants to use
                 String text = textType.getText();
                 String expression = expressions[currentExpression];
 
+                // accounting for the "y = "
                 text = text.substring(4);
 
                 Translator t = new Translator();
-                
+
+                // getting answer using x val and expression
                 expression = t.replaceVars(expression, text);
                 text = t.parsing(expression);
 
@@ -362,6 +371,8 @@ public class SwingUI2 {
                 textType.setText(text);
             }  
         });
+
+        // displays all the instructions with the get instructions button is clicked
 
         buttonInstructions.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){  
@@ -389,7 +400,7 @@ public class SwingUI2 {
 
 
 
-
+        // adds all the buttons to an Array (so we don't have to individuall add everything to the panels)
 
         JButton[] buttonsList = new JButton[]{button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, 
             buttonPlus, buttonMinus, buttonMultiply, buttonDivide, buttonNeg, buttonOpenPar, buttonClosePar, buttonPower, 
@@ -405,6 +416,8 @@ public class SwingUI2 {
             panelExpressions.add(buttonsList2[i]);
         }
 
+        // adds everything to the panels
+
         panelEquals.add(buttonEquals);
 
 
@@ -419,10 +432,14 @@ public class SwingUI2 {
         panelGroupExpressions.add(textExpressions);
 
         panelTop.add(panelGroup);
+
+        // makes it so history is scrollable
         panelTop.add(new JScrollPane(panelGroupHistory));
 
         panelBottom.add(panelExpressions);
         panelBottom.add(panelGroupExpressions);
+
+        // organizing the layout 
 
         JSplitPane sp = new JSplitPane(SwingConstants.HORIZONTAL, panelTop, panelBottom);
         sp.setOrientation(SwingConstants.HORIZONTAL);
