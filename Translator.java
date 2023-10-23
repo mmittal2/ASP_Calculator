@@ -4,6 +4,7 @@ public class Translator {
     public static void main(String[] args){
     }
 
+    // call the recursive parsing method to return the calculation result
     public String parsing(String calculation) {
         Engine e = new Engine();
         String[] operators = new String[]{"^", "R", "L", "N", "S", "C", "T", "None", "*", "/", "+", "-"};
@@ -13,6 +14,7 @@ public class Translator {
     public static String parsing_recursive(String calculation, Engine e, String[] operators, String fp) {
         int parenIndex = calculation.indexOf("(");
         int parenEndIndex = calculation.indexOf(")");
+        // if there are no more parentheses in the calculation, do the calculation and return the result
         if (parenIndex == -1 && parenEndIndex == -1) {
             calculation = callOperatorsToCalculate(calculation, e, operators);
             if (calculation.equals(" User error. Invalid Input.")) {
@@ -20,6 +22,7 @@ public class Translator {
             }
             return callOperatorsToCalculate(calculation, e, operators);
         }
+        // if there are no opening parentheses but there are closing paranthesis, excute smaller calculation inside parentheses
         else if (parenIndex == -1) {
             String smallCalc = calculation.substring(0, parenEndIndex - 1);
             smallCalc = callOperatorsToCalculate(smallCalc, e, operators);
@@ -37,6 +40,7 @@ public class Translator {
             }
             return parsing_recursive(calculation, e, operators, "");
         }
+        // if there is a parentheses in the beginning, excute the smaller calculation inside parentheses
         else if (parenEndIndex < parenIndex) {
             String smallCalc = calculation.substring(0, parenEndIndex - 1);
             smallCalc = callOperatorsToCalculate(smallCalc, e, operators);
@@ -46,6 +50,7 @@ public class Translator {
             calculation = fp + smallCalc + calculation.substring(parenEndIndex + 1);
             return parsing_recursive(calculation, e, operators, "");
         }
+        // if there are nested parantheses, calculate the expression in the innermost parentheses
         else {
             String smallCalc = calculation.substring(parenIndex + 2);
             if (parenIndex == 0) {
@@ -56,6 +61,7 @@ public class Translator {
         }
     }
 
+    // calculate the expression
     public static String callOperatorsToCalculate(String calculation, Engine e, String[] operators) {
         for(int i = 0; i < operators.length; i+=2){
             calculation = calculate(calculation, e, operators[i], operators[i+1]);
@@ -63,9 +69,9 @@ public class Translator {
         return calculation;
     }
 
+    // find the numbers involved in the operation (for each operator in the expression)
     public static ArrayList<Double> getNumbers(String expression, int location){
         ArrayList<Double> numbers = new ArrayList<Double>();
-        // firstNum, lastNum, startingIndex, endingIndex
         Double startingIndex = 0.0;
         Double endingIndex = (double) expression.length();
         String firstNum = "";
@@ -79,6 +85,7 @@ public class Translator {
         oneNumOperations.add('C');
         oneNumOperations.add('T');
 
+        // if the operator is root, log, ln, sin, cos, or tan only find the number after the operator
         if (!(oneNumOperations.contains(expression.charAt(location)))) {
             for(int i = location - 2; i >= 0; i--){
                 if(expression.charAt(i) == ' '){
@@ -122,16 +129,19 @@ public class Translator {
         return numbers;
     }
 
+    // iterate over the expression until all operations have been calculated
     public static String calculate(String calculation, Engine e, String operator1, String operator2){
         ArrayList<String> indexAndOperator = findIndex(calculation, operator1, operator2);
         String index_str = indexAndOperator.get(0);
         int index = Integer.valueOf(index_str);
         String operator = indexAndOperator.get(1);
 
+        // use PEMDAS to calculate the expression, replacing each operator/operands pair with the result, until no more operators exist
         while (index > -1) {
             ArrayList<Double> nums = getNumbers(calculation, index);
             double result = 0.0;
             if(operator == "^"){
+                // if given an invalid input, throw an error
                 if (nums.get(0) < 0 && nums.get(1) < 1 && nums.get(1) > 0) {
                     return " User error. Invalid input.";
                 }
@@ -177,6 +187,7 @@ public class Translator {
         return calculation;
     }
 
+    // differentiate between the subtraction sign and negative numbers
     public static int checkNegative(String calculation, int index, String operator) {
         if (calculation.charAt(index + 1) != ' ') {
             int storeIndex = index;
@@ -189,6 +200,7 @@ public class Translator {
         return index;
     }
 
+    // find the index of the operator that needs to be calculated next (using PEMDAS)
     public static ArrayList<String> findIndex(String calculation, String operator1, String operator2) {
         ArrayList<String> result = new ArrayList<String>();
         String operator = operator1;
@@ -208,6 +220,7 @@ public class Translator {
         return result;
     }
     
+    // when storing and getting expressions, replace "x" with the value for x given by the user
     public static String replaceVars(String expression, String val){
         int index = expression.indexOf("x");
         while(index > -1){
